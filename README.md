@@ -21,38 +21,6 @@ Dataset berasal dari Kaggle : https://www.kaggle.com/datasets/chaoquntan/image-d
 
 5. 4hong_hanyuan
 
-### Arsitektur Model
-
-Base model: DenseNet201 yang telah dilatih pada ImageNet, dengan include_top=False dan input berukuran 150x150x3.
-
-Layers tambahan: MaxPooling2D(), Dropout(0.5), Dense dll.
-
-Strategi Transfer Learning:
-
-Awalnya base model di-freeze, hanya layer baru yang dilatih dengan learning rate 0.0001. Setelah beberapa epoch, dilakukan fine-tuning dengan membuka beberapa layer teratas.
-
-### Proses Pelatihan
-
-Data Augmentasi : Rotation, shear, zoom, horizontal flip, dll. menggunakan ImageDataGenerator.
-
-Pembagian Data: 80% training, 10% validasi, 10% testing (dengan metode split folder).
-
-Optimizer: Adam dengan learning rate bertahap (ReduceLROnPlateau).
-
-Callbacks: EarlyStopping dan ReduceLROnPlateau.
-
-Batch size: 16.
-
-Epoch: Maksimal 10 dengan early stopping.
-
-### Hasil Model
-
-Akurasi Training: Mencapai >= 95%.
-
-Akurasi Validasi: Stabil di sekitar 95% .
-
-Akurasi Test: Diperoleh sekitar 96% (evaluasi pada data testing yang tidak pernah digunakan selama pelatihan).
-
 Model yang dihasilkan disimpan dalam tiga format:
 
 - SavedModel (untuk deployment di TensorFlow Serving)
